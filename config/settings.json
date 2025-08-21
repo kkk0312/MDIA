@@ -1,0 +1,15 @@
+{
+  "default_provider": "dashscope",
+  "default_model": "qwen-turbo",
+  "enable_cost_tracking": true,
+  "cost_alert_threshold": 100.0,
+  "currency_preference": "CNY",
+  "auto_save_usage": true,
+  "max_usage_records": 10000,
+  "data_dir": "C:\\Users\\ROGK\\PycharmProjects\\TradingAgents-CN\\data",
+  "cache_dir": "C:\\Users\\ROGK\\PycharmProjects\\TradingAgents-CN\\data\\cache",
+  "results_dir": "C:\\Users\\ROGK\\Documents\\TradingAgents\\results",
+  "auto_create_dirs": true,
+  "finnhub_api_key": "d204s09r01qmbi8r3qc0d204s09r01qmbi8r3qcg",
+  "log_level": "INFO"
+}
