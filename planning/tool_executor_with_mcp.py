@@ -65,7 +65,7 @@ class ToolExecutor:
     def _load_mcp_server_urls(self) -> List[str]:
         """从mcp.json加载所有有效的MCP服务器URL"""
         try:
-            config_path = os.path.join(os.getcwd(), "planning\\mcp.json")
+            config_path = os.path.join(os.getcwd(), "planning", "mcp.json")
 
             if not os.path.exists(config_path):
                 raise FileNotFoundError(f"mcp.json配置文件未找到，路径：{config_path}")
