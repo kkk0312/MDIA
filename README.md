@@ -63,7 +63,8 @@ MDIA旨在构建闭环的全域数据驱动智能分析体系，突破传统工�
 
 
 ## 🚀 快速开始
-
+### 🌟 网页启动
+可以直接访问网址https://mdia-kjh.streamlit.app/使用本平台
 ### 🔧 环境准备
 ```bash
 # 克隆项目
@@ -74,7 +75,7 @@ cd MDIA
 pip install -r requirements.txt
 
 # 启动服务
-python start_app.py
+python start_web.py
 # 访问 http://localhost:8501 进入Web界面
 ```
 
