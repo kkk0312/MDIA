@@ -8,15 +8,11 @@ import re
 import json
 from dotenv import load_dotenv
 import base64
-
 # 多模态相关库
 from PIL import Image
 import io
-
 # PDF处理相关库
 from pdf2image import convert_from_bytes, convert_from_path
-import tempfile
-
 # 网页截图相关库
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
@@ -42,14 +38,7 @@ except ImportError:
     logger.warning("volcenginesdkarkruntime not installed, multimodal features will be disabled")
     has_ark_sdk = False
 # 导入自定义组件
-from components.sidebar import render_sidebar
 from components.header import render_header
-from components.results_display import render_results
-from utils.api_checker import check_api_keys
-from utils.analysis_runner import run_stock_analysis, validate_analysis_params, format_analysis_results
-from utils.progress_tracker import SmartStreamlitProgressDisplay, create_smart_progress_callback
-from utils.async_progress_tracker import AsyncProgressTracker
-from components.async_progress_display import display_unified_progress
 from utils.smart_session_manager import get_persistent_analysis_id, set_persistent_analysis_id
 
 # 导入新的工具执行器
@@ -323,8 +312,6 @@ def initialize_session_state():
         st.session_state.last_analysis_time = None
     if 'current_analysis_id' not in st.session_state:
         st.session_state.current_analysis_id = None
-    if 'form_config' not in st.session_state:
-        st.session_state.form_config = None
 
     # 多模态分析相关状态变量
     if 'image_analysis_report' not in st.session_state:
@@ -382,40 +369,6 @@ def initialize_session_state():
     # 工具相关状态
     if 'tool_executor' not in st.session_state:
         st.session_state.tool_executor = None
-
-    # 尝试从最新完成的分析中恢复结果
-    if not st.session_state.analysis_results:
-        try:
-            from utils.async_progress_tracker import get_latest_analysis_id, get_progress_by_id
-            from utils.analysis_runner import format_analysis_results
-
-            latest_id = get_latest_analysis_id()
-            if latest_id:
-                progress_data = get_progress_by_id(latest_id)
-                if (progress_data and
-                        progress_data.get('status') == 'completed' and
-                        'raw_results' in progress_data):
-
-                    # 恢复分析结果
-                    raw_results = progress_data['raw_results']
-                    formatted_results = format_analysis_results(raw_results)
-
-                    if formatted_results:
-                        st.session_state.analysis_results = formatted_results
-                        st.session_state.current_analysis_id = latest_id
-                        # 检查分析状态
-                        analysis_status = progress_data.get('status', 'completed')
-                        st.session_state.analysis_running = (analysis_status == 'running')
-                        # 恢复股票信息
-                        if 'stock_symbol' in raw_results:
-                            st.session_state.last_stock_symbol = raw_results.get('stock_symbol', '')
-                        if 'market_type' in raw_results:
-                            st.session_state.last_market_type = raw_results.get('market_type', '')
-                        logger.info(f"📊 [结果恢复] 从分析 {latest_id} 恢复结果，状态: {analysis_status}")
-
-        except Exception as e:
-            logger.warning(f"⚠️ [结果恢复] 恢复失败: {e}")
-
     # 使用cookie管理器恢复分析ID（优先级：session state > cookie > Redis/文件）
     try:
         persistent_analysis_id = get_persistent_analysis_id()
@@ -445,21 +398,6 @@ def initialize_session_state():
         logger.warning(f"⚠️ [状态恢复] 恢复分析状态失败: {e}")
         st.session_state.analysis_running = False
         st.session_state.current_analysis_id = None
-
-    # 恢复表单配置
-    try:
-        from utils.smart_session_manager import smart_session_manager
-        session_data = smart_session_manager.load_analysis_state()
-
-        if session_data and 'form_config' in session_data:
-            st.session_state.form_config = session_data['form_config']
-            # 只在没有分析运行时记录日志，避免重复
-            if not st.session_state.get('analysis_running', False):
-                logger.info("📊 [配置恢复] 表单配置已恢复")
-    except Exception as e:
-        logger.warning(f"⚠️ [配置恢复] 表单配置恢复失败: {e}")
-    if 'initial' not in st.session_state.task_progress['completed_stages']:
-        st.session_state.task_progress['completed_stages'].append('initial')
 
 
 def convert_pdf_to_images(pdf_file):
