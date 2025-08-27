@@ -74,6 +74,10 @@ cd MDIA
 # 安装依赖
 pip install -r requirements.txt
 
+# 配置环境变量
+cp .env.example .env
+# 在.env中填入正确的API_KEY
+
 # 启动服务
 python start_web.py
 # 访问 http://localhost:8501 进入Web界面
@@ -102,17 +106,6 @@ python start_web.py
 - **高可靠性**：自动化校验机制适配高精度场景需求
 - **广泛适配**：覆盖金融、医疗、法律等多领域，提供定制化分析服务
 
-
-## 📚 文档与支持
-
-- **完整文档**：[docs/](./docs/) - 包含安装指南、使用教程、API文档
-- **更新日志**：[CHANGELOG.md](./docs/CHANGELOG.md) - 版本迭代记录
-- **问题反馈**：[GitHub Issues](https://github.com/kkk0312/MDIA/issues)
-
-
-## 📄 许可证
-
-本项目基于 Apache 2.0 许可证开源，详见 [LICENSE](LICENSE) 文件。
 
 
 ## 🙏 致谢
