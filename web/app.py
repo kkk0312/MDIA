@@ -3,7 +3,9 @@ import sys
 from pathlib import Path
 from dotenv import load_dotenv
 import base64
-
+# 添加项目根目录到Python路径
+project_root = Path(__file__).parent.parent
+sys.path.insert(0, str(project_root))
 # sqlite3 的版本需要 >= 3.35.0
 import pysqlite3
 sys.modules["sqlite3"] = sys.modules.pop("pysqlite3")
@@ -21,9 +23,6 @@ from backend.analysis.modal_process import convert_pdf_to_images, capture_screen
 # 导入辅助函数
 from backend.analysis.utils import get_download_link
 
-# 添加项目根目录到Python路径
-project_root = Path(__file__).parent.parent
-sys.path.insert(0, str(project_root))
 
 # 引入日志模块
 from tradingagents.utils.logging_manager import get_logger
