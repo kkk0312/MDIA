@@ -162,15 +162,15 @@ def render_sidebar():
         else:
             st.info("ℹ️ Tushare: 未配置")
 
-        # Google AI
-        google_key = os.getenv("GOOGLE_API_KEY")
-        status, level = validate_api_key(google_key, "google")
-        if level == "success":
-            st.success(f"✅ Google AI: {status}")
-        elif level == "warning":
-            st.warning(f"⚠️ Google AI: {status}")
-        else:
-            st.info("ℹ️ Google AI: 未配置")
+        # # Google AI
+        # google_key = os.getenv("GOOGLE_API_KEY")
+        # status, level = validate_api_key(google_key, "google")
+        # if level == "success":
+        #     st.success(f"✅ Google AI: {status}")
+        # elif level == "warning":
+        #     st.warning(f"⚠️ Google AI: {status}")
+        # else:
+        #     st.info("ℹ️ Google AI: 未配置")
 
         # OpenAI (如果配置了且不是默认值)
         openai_key = os.getenv("OPENAI_API_KEY")
@@ -196,20 +196,9 @@ def render_sidebar():
         st.markdown("**ℹ️ 系统信息**")
         
         st.info(f"""
-        **版本**: 1.0.0
         **框架**: Streamlit + LangGraph
         **AI模型**: {llm_provider.upper()} - {llm_model}
-        **数据源**: Tushare + FinnHub API
-        """)
-        
-        # 帮助链接
-        st.markdown("**📚 帮助资源**")
-        
-        st.markdown("""
-        - [📖 使用文档](https://github.com/TauricResearch/TradingAgents)
-        - [🐛 问题反馈](https://github.com/TauricResearch/TradingAgents/issues)
-        - [💬 讨论社区](https://github.com/TauricResearch/TradingAgents/discussions)
-        - [🔧 API密钥配置](../docs/security/api_keys_security.md)
+        **数据源**: AKshare + FinnHub API
         """)
     
     return {

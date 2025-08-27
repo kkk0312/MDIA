@@ -52,27 +52,7 @@ import os
 import pandas as pd
 from tqdm import tqdm
 from openai import OpenAI
-from .akshare_news_utils import AKShareNewsUtils
 
-
-def get_akshare_company_news(
-        symbol: Annotated[str, "股票代码"],
-        start_date: Annotated[str, "开始日期，格式为 yyyy-mm-dd"],
-        end_date: Annotated[str, "结束日期，格式为 yyyy-mm-dd"],
-) -> str:
-    """获取 A 股公司新闻和公告"""
-    news = AKShareNewsUtils.get_company_news(symbol, start_date, end_date)
-    announcements = AKShareNewsUtils.get_company_announcements(symbol, start_date, end_date)
-    return AKShareNewsUtils.format_news_report(news, announcements)
-
-
-def get_akshare_market_news(
-        start_date: Annotated[str, "开始日期，格式为 yyyy-mm-dd"],
-        end_date: Annotated[str, "结束日期，格式为 yyyy-mm-dd"],
-) -> str:
-    """获取 A 股市场新闻（东方财富和财联社）"""
-    news = AKShareNewsUtils.get_market_news(start_date, end_date)
-    return AKShareNewsUtils.format_news_report(news)
 # 尝试导入yfinance，如果失败则设置为None
 try:
     import yfinance as yf
@@ -849,6 +829,25 @@ def get_global_news_openai(curr_date):
 
     return response.output[1].content[0].text
 
+from .akshare_news_utils import AKShareNewsUtils
+
+def get_akshare_company_news(
+    symbol: Annotated[str, "股票代码"],
+    start_date: Annotated[str, "开始日期，格式为 yyyy-mm-dd"],
+    end_date: Annotated[str, "结束日期，格式为 yyyy-mm-dd"],
+) -> str:
+    """获取 A 股公司新闻和公告"""
+    news = AKShareNewsUtils.get_company_news(symbol, start_date, end_date)
+    announcements = AKShareNewsUtils.get_company_announcements(symbol, start_date, end_date)
+    return AKShareNewsUtils.format_news_report(news, announcements)
+
+def get_akshare_market_news(
+    start_date: Annotated[str, "开始日期，格式为 yyyy-mm-dd"],
+    end_date: Annotated[str, "结束日期，格式为 yyyy-mm-dd"],
+) -> str:
+    """获取 A 股市场新闻（东方财富和财联社）"""
+    news = AKShareNewsUtils.get_market_news(start_date, end_date)
+    return AKShareNewsUtils.format_news_report(news)
 
 def get_fundamentals_finnhub(ticker, curr_date):
     """

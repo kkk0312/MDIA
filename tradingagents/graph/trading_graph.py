@@ -102,28 +102,6 @@ class TradingAgentsGraph:
                 temperature=0.1,
                 max_tokens=2000
             )
-        elif self.config["llm_provider"].lower() in ["volces", "ark", "volces_ark"]:
-            # 火山方舟配置 - 使用OpenAI兼容接口（已在文件顶部导入ChatOpenAI）
-            volces_api_key = os.getenv('VOLCES_API_KEY')
-            if not volces_api_key:
-                raise ValueError("使用Volces Ark需要设置VOLCES_API_KEY环境变量")
-
-            # 直接使用顶部导入的ChatOpenAI
-            self.deep_thinking_llm = ChatOpenAI(
-                model=self.config["deep_think_llm"],
-                api_key=volces_api_key,
-                base_url=self.config["backend_url"],
-                temperature=0.1,
-                max_tokens=2000
-            )
-            self.quick_thinking_llm = ChatOpenAI(
-                model=self.config["quick_think_llm"],
-                api_key=volces_api_key,
-                base_url=self.config["backend_url"],
-                temperature=0.1,
-                max_tokens=2000
-            )
-            logger.info(f"✅ [Volces Ark] 已初始化深度模型和轻量模型")
         elif (self.config["llm_provider"].lower() == "deepseek" or
               "deepseek" in self.config["llm_provider"].lower()):
             # DeepSeek V3配置 - 使用支持token统计的适配器
@@ -233,8 +211,9 @@ class TradingAgentsGraph:
             "news": ToolNode(
                 [
                     # online tools
-                    self.toolkit.get_company_news,  # 新增
-                    self.toolkit.get_market_news,  # 新增
+                    self.toolkit.get_realtime_stock_news,
+                    self.toolkit.get_company_news,
+                    self.toolkit.get_market_news,
                     self.toolkit.get_global_news_openai,
                     self.toolkit.get_google_news,
                     # offline tools

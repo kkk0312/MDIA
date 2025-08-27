@@ -75,24 +75,6 @@ class Toolkit:
 
     @staticmethod
     @tool
-    def get_company_news(
-            symbol: Annotated[str, "股票代码"],
-            start_date: Annotated[str, "开始日期，格式为 yyyy-mm-dd"],
-            end_date: Annotated[str, "结束日期，格式为 yyyy-mm-dd"],
-    ) -> str:
-        """获取公司新闻和公告"""
-        return interface.get_akshare_company_news(symbol, start_date, end_date)
-
-    @staticmethod
-    @tool
-    def get_market_news(
-            start_date: Annotated[str, "开始日期，格式为 yyyy-mm-dd"],
-            end_date: Annotated[str, "结束日期，格式为 yyyy-mm-dd"],
-    ) -> str:
-        """获取市场新闻（东方财富和财联社）"""
-        return interface.get_akshare_market_news(start_date, end_date)
-    @staticmethod
-    @tool
     def get_finnhub_news(
         ticker: Annotated[
             str,
@@ -557,6 +539,25 @@ class Toolkit:
         openai_news_results = interface.get_global_news_openai(curr_date)
 
         return openai_news_results
+
+    @staticmethod
+    @tool
+    def get_company_news(
+        symbol: Annotated[str, "股票代码"],
+        start_date: Annotated[str, "开始日期，格式为 yyyy-mm-dd"],
+        end_date: Annotated[str, "结束日期，格式为 yyyy-mm-dd"],
+    ) -> str:
+        """获取公司新闻和公告"""
+        return interface.get_akshare_company_news(symbol, start_date, end_date)
+
+    @staticmethod
+    @tool
+    def get_market_news(
+        start_date: Annotated[str, "开始日期，格式为 yyyy-mm-dd"],
+        end_date: Annotated[str, "结束日期，格式为 yyyy-mm-dd"],
+    ) -> str:
+        """获取市场新闻（东方财富和财联社）"""
+        return interface.get_akshare_market_news(start_date, end_date)
 
     @staticmethod
     # @tool  # 已移除：请使用 get_stock_fundamentals_unified

@@ -43,7 +43,6 @@ def get_next_weekday(date):
     else:
         return date
 
-
 def convert_symbol(symbol: str) -> str:
     """转换股票代码格式，确保是6位数字格式
 

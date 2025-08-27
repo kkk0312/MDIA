@@ -328,6 +328,55 @@ class DatabaseManager:
 
         return cleared_count
 
+    def cache_set(self, key, value, ttl=None):
+        """
+        设置 Redis 缓存
+        :param key: 键
+        :param value: 任意可 JSON 序列化的值
+        :param ttl: 缓存有效时间（秒），None 表示永久
+        :return: True 表示成功，否则 False
+        """
+        import json
+        try:
+            serialized = json.dumps(value)
+            if ttl:
+                self.redis_client.setex(key, ttl, serialized)
+            else:
+                self.redis_client.set(key, serialized)
+            return True
+        except Exception as e:
+            print(f"❌ Redis 写入失败: {e}")
+            return False
+
+    def cache_get(self, key):
+        """
+        获取 Redis 缓存
+        :param key: 缓存键
+        :return: 解码后的对象或 None
+        """
+        import json
+        try:
+            value = self.redis_client.get(key)
+            if value is not None:
+                return json.loads(value)
+            return None
+        except Exception as e:
+            print(f"❌ Redis 读取失败: {e}")
+            return None
+
+    def cache_delete(self, key):
+        """
+        删除 Redis 缓存
+        :param key: 缓存键
+        :return: True 表示成功，否则 False
+        """
+        try:
+            result = self.redis_client.delete(key)
+            return result == 1
+        except Exception as e:
+            print(f"❌ Redis 删除失败: {e}")
+            return False
+
 
 # 全局数据库管理器实例
 _database_manager = None

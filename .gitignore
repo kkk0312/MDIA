@@ -19,10 +19,10 @@ __pycache__/
 Thumbs.db
 
 # 数据文件
-*.csv
+#*.csv
 #*.json
-*.xlsx
-*.xls
+#*.xlsx
+#*.xls
 
 # 项目特定目录
 src/

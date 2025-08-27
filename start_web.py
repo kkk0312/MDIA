@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 """
-TradingAgents-CN 简化启动脚本
-解决模块导入问题的最简单方案
+简化启动脚本
 """
 
 import os
@@ -11,13 +10,13 @@ from pathlib import Path
 
 def main():
     """主函数"""
-    print("🚀 多模态文档洞察分析 Web应用启动器")
+    print("🚀 Web应用启动器")
     print("=" * 50)
     
     # 获取项目根目录
     project_root = Path(__file__).parent
     web_dir = project_root / "web"
-    app_file = web_dir / "app.py"
+    app_file = web_dir / "app_local.py"
     
     # 检查文件是否存在
     if not app_file.exists():

@@ -70,7 +70,7 @@ class StructuredFormatter(logging.Formatter):
 
 
 class TradingAgentsLogger:
-    """TradingAgents统一日志管理器"""
+    """统一日志管理器"""
     
     def __init__(self, config: Optional[Dict[str, Any]] = None):
         self.config = config or self._load_default_config()

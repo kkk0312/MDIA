@@ -6,10 +6,13 @@
   "currency_preference": "CNY",
   "auto_save_usage": true,
   "max_usage_records": 10000,
-  "data_dir": "C:\\Users\\ROGK\\PycharmProjects\\TradingAgents-CN\\data",
-  "cache_dir": "C:\\Users\\ROGK\\PycharmProjects\\TradingAgents-CN\\data\\cache",
-  "results_dir": "C:\\Users\\ROGK\\Documents\\TradingAgents\\results",
+  "data_dir": "C:\\Users\\12075\\Desktop\\Multimodal-Document-Insight-Analysis\\data",
+  "cache_dir": "C:\\Users\\12075\\Desktop\\Multimodal-Document-Insight-Analysis\\data\\cache",
+  "results_dir": "./results",
   "auto_create_dirs": true,
-  "finnhub_api_key": "d204s09r01qmbi8r3qc0d204s09r01qmbi8r3qcg",
+  "finnhub_api_key": "d208bmpr01qmbi8ritjgd208bmpr01qmbi8ritk0",
+  "reddit_client_id": "your_reddit_client_id",
+  "reddit_client_secret": "your_reddit_client_secret",
+  "reddit_user_agent": "TradingAgents-CN/1.0",
   "log_level": "INFO"
 }

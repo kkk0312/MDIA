@@ -9,7 +9,7 @@ from typing import Dict, Optional
 
 # 导入统一日志系统
 from tradingagents.utils.logging_init import get_logger
-logger = get_logger("agents.utils.memory")
+logger = get_logger("agents.analysis.memory")
 
 
 class ChromaDBManager:

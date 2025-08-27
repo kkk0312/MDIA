@@ -70,7 +70,7 @@ def render_results(results):
 
     # 风险提示
     render_risk_warning(is_demo)
-
+    
     # 导出报告功能
     render_export_buttons(results)
 
@@ -234,7 +234,7 @@ def render_decision_summary(decision, stock_symbol=None):
             value=price_display,
             help=help_text
         )
-
+    
     # 分析推理
     if 'reasoning' in decision and decision['reasoning']:
         with st.expander("🧠 AI分析推理", expanded=True):
@@ -242,9 +242,9 @@ def render_decision_summary(decision, stock_symbol=None):
 
 def render_detailed_analysis(state):
     """渲染详细分析报告"""
-
+    
     st.subheader("📋 详细分析报告")
-
+    
     # 定义分析模块
     analysis_modules = [
         {
@@ -254,21 +254,21 @@ def render_detailed_analysis(state):
             'description': '技术指标、价格趋势、支撑阻力位分析'
         },
         {
-            'key': 'fundamentals_report',
+            'key': 'fundamentals_report', 
             'title': '💰 基本面分析',
             'icon': '💰',
             'description': '财务数据、估值水平、盈利能力分析'
         },
         {
             'key': 'sentiment_report',
-            'title': '💭 市场情绪分析',
+            'title': '💭 市场情绪分析', 
             'icon': '💭',
             'description': '投资者情绪、社交媒体情绪指标'
         },
         {
             'key': 'news_report',
             'title': '📰 新闻事件分析',
-            'icon': '📰',
+            'icon': '📰', 
             'description': '相关新闻事件、市场动态影响分析'
         },
         {
@@ -284,15 +284,15 @@ def render_detailed_analysis(state):
             'description': '具体投资策略、仓位管理建议'
         }
     ]
-
+    
     # 创建标签页
     tabs = st.tabs([f"{module['icon']} {module['title']}" for module in analysis_modules])
-
+    
     for i, (tab, module) in enumerate(zip(tabs, analysis_modules)):
         with tab:
             if module['key'] in state and state[module['key']]:
                 st.markdown(f"*{module['description']}*")
-
+                
                 # 格式化显示内容
                 content = state[module['key']]
                 if isinstance(content, str):
@@ -319,10 +319,12 @@ def render_risk_warning(is_demo=False):
         st.info("**真实分析**: 要获取真实分析结果，请配置正确的API密钥")
 
     st.error("""
-            ⚠️ **警告**
-
-            - 本系统提供的分析结果仅供参考，不构成任何建议
-            - AI分析存在局限性，造成任何影响本报告不承担任何责任
+    **投资风险提示**:
+    - **仅供参考**: 本分析结果仅供参考，不构成投资建议
+    - **投资风险**: 股票投资有风险，可能导致本金损失
+    - **理性决策**: 请结合多方信息进行理性投资决策
+    - **专业咨询**: 重大投资决策建议咨询专业财务顾问
+    - **自担风险**: 投资决策及其后果由投资者自行承担
     """)
 
     # 添加时间戳
@@ -330,12 +332,12 @@ def render_risk_warning(is_demo=False):
 
 def create_price_chart(price_data):
     """创建价格走势图"""
-
+    
     if not price_data:
         return None
-
+    
     fig = go.Figure()
-
+    
     # 添加价格线
     fig.add_trace(go.Scatter(
         x=price_data['date'],
@@ -344,7 +346,7 @@ def create_price_chart(price_data):
         name='股价',
         line=dict(color='#1f77b4', width=2)
     ))
-
+    
     # 设置图表样式
     fig.update_layout(
         title="股价走势图",
@@ -353,15 +355,15 @@ def create_price_chart(price_data):
         hovermode='x unified',
         showlegend=True
     )
-
+    
     return fig
 
 def create_sentiment_gauge(sentiment_score):
     """创建情绪指标仪表盘"""
-
+    
     if sentiment_score is None:
         return None
-
+    
     fig = go.Figure(go.Indicator(
         mode = "gauge+number+delta",
         value = sentiment_score,
@@ -384,5 +386,5 @@ def create_sentiment_gauge(sentiment_score):
             }
         }
     ))
-
+    
     return fig

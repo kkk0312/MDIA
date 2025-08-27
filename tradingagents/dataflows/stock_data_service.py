@@ -30,7 +30,7 @@ try:
     import sys
     import os
     # 添加utils目录到路径
-    utils_path = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), 'utils')
+    utils_path = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), 'analysis')
     if utils_path not in sys.path:
         sys.path.append(utils_path)
     from enhanced_stock_list_fetcher import enhanced_fetch_stock_list

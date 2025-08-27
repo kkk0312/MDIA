@@ -10,8 +10,8 @@ def render_header():
     # 主标题
     st.markdown("""
     <div class="main-header">
-        <h1> 多模态文档洞察分析平台</h1>
-        <h6>多智能体协同的多模态文档深度洞察系统</h6>
+        <h1>多模态文档洞察分析平台</h1>
+        <h5>多智能体协同的多模态文档深度洞察系统</h5>
     </div>
     """, unsafe_allow_html=True)
     
@@ -38,7 +38,7 @@ def render_header():
         st.markdown("""
         <div class="metric-card">
             <h4>📊 深度解析框架</h4>
-            <p>实现文档内容因果溯源给出深度解析</p>
+            <p>文档内容因果溯源深度解析</p>
         </div>
         """, unsafe_allow_html=True)
     

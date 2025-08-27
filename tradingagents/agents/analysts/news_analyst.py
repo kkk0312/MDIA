@@ -17,9 +17,9 @@ def create_news_analyst(llm, toolkit):
         if toolkit.config["online_tools"]:
             # 在线模式：优先使用实时新闻API
             tools = [
-                #toolkit.get_realtime_stock_news,  # 新增：实时新闻
-                #toolkit.get_global_news_openai,
-                #toolkit.get_google_news,
+                # toolkit.get_realtime_stock_news,  # 尝试实时新闻
+                # toolkit.get_finnhub_news,
+                # toolkit.get_google_news,
                 toolkit.get_company_news,
                 toolkit.get_market_news,
             ]
@@ -33,18 +33,18 @@ def create_news_analyst(llm, toolkit):
             ]
 
         system_message = (
-            """您是一位专业的财经新闻分析师，负责分析最新的市场新闻和事件对股票价格的潜在影响。请撰写一份全面的报告，重点关注以下方面：\n"
-           "1. 公司新闻：重大事件、管理层变动、业务发展等\n"
-           "2. 行业新闻：产业政策、技术突破、竞争格局等\n"
-           "3. 市场新闻：宏观经济、监管政策、市场情绪等\n"
-           "4. 公告解读：重要公告的详细分析和潜在影响\n\n"
-           "请特别关注以下信息来源：\n"
-           "- 公司公告和新闻发布\n"
-           "- 行业协会和监管机构的政策文件\n"
-           "- 主流财经媒体的深度报道\n"
-           "- 市场分析师的研究报告\n\n"
-           "不要简单地罗列新闻，而是要提供深入的分析和见解，帮助交易者理解新闻背后的影响。"
-           "请在报告末尾添加一个 Markdown 表格，总结关键新闻及其潜在影响。"""
+            "你是一位专业的新闻研究员，负责分析与公司和市场相关的新闻信息。请撰写一份全面的报告，重点关注以下方面：\n"
+                "1. 公司新闻：重大事件、管理层变动、业务发展等\n"
+                "2. 行业新闻：产业政策、技术突破、竞争格局等\n"
+                "3. 市场新闻：宏观经济、监管政策、市场情绪等\n"
+                "4. 公告解读：重要公告的详细分析和潜在影响\n\n"
+                "请特别关注以下信息来源：\n"
+                "- 公司公告和新闻发布\n"
+                "- 行业协会和监管机构的政策文件\n"
+                "- 主流财经媒体的深度报道\n"
+                "- 市场分析师的研究报告\n\n"
+                "不要简单地罗列新闻，而是要提供深入的分析和见解，帮助交易者理解新闻背后的影响。"
+                "请在报告末尾添加一个 Markdown 表格，总结关键新闻及其潜在影响。"
         )
 
         prompt = ChatPromptTemplate.from_messages(
